@@ -27,6 +27,7 @@ def getData (url):
             data = file.read()
             file_len = len(data)
             file_info = data
+
     return file_info,file_len
 
 
@@ -47,13 +48,19 @@ while True:
     else:
         print(data)
 
+    no_access = ["C:/Users/talmid/PyCharmMiscProject/hapoel.png"]
     url = getURL(data)
 
 
     if url:
         file_info,file_len = getData(url)
-        ans = f"HTTP/1.1 200 OK\r\nContent-Length: {str(file_len)}\r\n\r\n"
+        if url not in no_access:
+            ans = f"HTTP/1.1 200 OK\r\nContent-Length: {str(file_len)}\r\n\r\n"
 
+        else:
+            ans = f"HTTP/1.1 403 Not Allowed\r\nContent-Length: 0\r\n\r\n"
+        if not file_info:
+            ans = f"HTTP/1.1 404 Not Found \r\nContent-Length: 0\r\n\r\n"
         try:
             client_socket.send(ans.encode())
             client_socket.send(file_info)
