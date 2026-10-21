@@ -20,6 +20,11 @@ def getURL(ans):
     return url[1:]
 
 def getData (url):
+    """
+
+    :param url:
+    :return: length and data of the file
+    """
     file_info = None
     file_len = None
     if os.path.isfile(url):
